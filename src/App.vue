@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-row>
+    <!-- <el-row>
       <el-button disabled>默认按钮</el-button>
       <el-button type="primary">主要按钮</el-button>
       <el-button type="success">成功按钮</el-button>
@@ -8,51 +8,52 @@
       <el-button type="warning">警告按钮</el-button>
       <el-button type="danger">危险按钮</el-button>
       <el-button type="text">危险按钮</el-button>
-    </el-row>
-
-    <!-- <el-row>
-      <el-button plain>朴素按钮</el-button>
-      <el-button type="primary" plain>主要按钮</el-button>
-      <el-button type="success" plain>成功按钮</el-button>
-      <el-button type="info" plain>信息按钮</el-button>
-      <el-button type="warning" plain>警告按钮</el-button>
-      <el-button type="danger" plain>危险按钮</el-button>
-    </el-row>
-
-    <el-row>
-      <el-button round>圆角按钮</el-button>
-      <el-button type="primary" round>主要按钮</el-button>
-      <el-button type="success" round>成功按钮</el-button>
-      <el-button type="info" round>信息按钮</el-button>
-      <el-button type="warning" round>警告按钮</el-button>
-      <el-button type="danger" round>危险按钮</el-button>
-    </el-row>
-
-    <el-row>
-      <el-button icon="el-icon-search" circle></el-button>
-      <el-button type="primary" icon="el-icon-edit" circle></el-button>
-      <el-button type="success" icon="el-icon-check" circle></el-button>
-      <el-button type="info" icon="el-icon-message" circle></el-button>
-      <el-button type="warning" icon="el-icon-star-off" circle></el-button>
-      <el-button type="danger" icon="el-icon-delete" circle></el-button>
     </el-row> -->
+    <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
 
-    <my-button>提 交</my-button>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- <my-button>提 交</my-button> -->
 
   </div>
 </template>
 
+
 <script>
 import ElButton from './components/button/button.vue'
-
-export default {
+import ElDialog from './components/dialog/dialog.vue'
+  export default {
   name: 'App',
   components: {
-    ElButton
-  }
-}
+    ElButton,
+    ElDialog
+  },
+    data() {
+      return {
+        dialogVisible: false
+      };
+    },
+    methods: {
+      handleClose() {
+        this.$confirm('确认关闭？')
+          .then(() => {
+            console.log();
+          })
+          // .catch(_ => {});
+      }
+    }
+  };
 </script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
